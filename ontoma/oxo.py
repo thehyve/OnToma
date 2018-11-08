@@ -28,7 +28,7 @@ class OxoClient:
 
     >>> oxo = OxoClient()
     >>> len(oxo._sources)
-    940
+    986
 
     >>> first_result = list(oxo.search(input_source="ICD9CM"))[:1][0]
     >>> first_result['curie']

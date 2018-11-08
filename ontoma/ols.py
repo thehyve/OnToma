@@ -98,7 +98,7 @@ class OlsClient:
     'EFO_1001054'
 
     >>> [x['short_form'] for x in ols.select('alzheimer')[:2]]
-    ['NCIT_C2866', 'NCIT_C38778']
+    ['PW_0000015', 'NCIT_C38778']
 
     You can also pass your favourite parameters at class instantiation:
 
