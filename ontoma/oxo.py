@@ -32,7 +32,7 @@ class OxoClient:
 
     >>> first_result = list(oxo.search(input_source="ICD9CM"))[:1][0]
     >>> first_result['curie']
-    'ICD9CM:730.92'
+    'ICD9CM:564.1'
 
     >>> for r in oxo.search(ids=['ICD9CM:171.6'],input_source="ICD9CM"):
     ...     print(r['label'])

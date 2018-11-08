@@ -13,7 +13,8 @@ def test_suggest_hp_term_not_excluded(ontclient):
     assert ontclient.find_term('hypogammaglobulinemia') == 'http://purl.obolibrary.org/obo/HP_0004313'
 
 def test_catch_ordo(ontclient):
-    assert ontclient.find_term('Camptodactyly-arthropathy-coxa-vara-pericarditis syndrome') == 'http://www.orpha.net/ORDO/Orphanet_2848'
+    #there are two terms which are equivalent, so pass if we fetch either of them
+    assert ontclient.find_term('Camptodactyly-arthropathy-coxa-vara-pericarditis syndrome') in ('http://www.orpha.net/ORDO/Orphanet_2848', 'http://www.ebi.ac.uk/efo/EFO_0009028')
     assert not ontclient.find_term('208250')
     #there are two terms mapped to OMIM 208250 which are equivalent, so pass if we fetch either of them
     assert ontclient.find_term('208250',suggest=True) in ('http://www.orpha.net/ORDO/Orphanet_2848', 'http://www.ebi.ac.uk/efo/EFO_0009028')
