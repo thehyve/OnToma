@@ -13,7 +13,7 @@ import pandas as pd
 
 from ontoma import ontology
 from ontoma.efo_handler import EFOHandler
-from ontoma.constants import URLS, RESULT_FIELDS
+from ontoma.constants import URL_TEMPLATES, RESULT_FIELDS
 from ontoma.downloaders import get_manual_xrefs, get_manual_string_mappings
 from ontoma.oxo import OxoClient
 from ontoma.zooma import ZoomaClient
@@ -27,7 +27,7 @@ OnTomaResult = namedtuple("OnTomaResult", RESULT_FIELDS)
 class OnToma:
     """Open Targets ontology mapping wrapper. Please refer to documentation for usage details."""
 
-    def __init__(self, cache_dir=None, efo_release="latest"):
+    def __init__(self, cache_dir=None, efo_release="latest", ot_release="master"):
         """Initialise an OnToma instance and fetch the necessary resources.
 
         If cache_dir is not specified, a temporary directory will be used to fetch and store EFO cache.
@@ -61,8 +61,12 @@ class OnToma:
         )
 
         # Import manually curated datasets.
-        self.manual_xrefs = get_manual_xrefs(URLS["MANUAL_XREF"])
-        self.manual_string = get_manual_string_mappings(URLS["MANUAL_STRING"])
+        self.manual_xrefs = get_manual_xrefs(
+            URL_TEMPLATES["MANUAL_XREF"].format(ot_release=ot_release)
+        )
+        self.manual_string = get_manual_string_mappings(
+            URL_TEMPLATES["MANUAL_STRING"].format(ot_release=ot_release)
+        )
 
     def filter_identifiers_by_efo_current(self, normalised_identifiers):
         """Returns a subset of the idenfitiers which are in EFO and not marked as obsolete."""

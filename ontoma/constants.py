@@ -1,9 +1,9 @@
 """Constants for URLs and other values."""
 
 # Manual mapping databases.
-URLS = {
-    'MANUAL_XREF': 'https://raw.githubusercontent.com/opentargets/curation/master/mappings/disease/manual_xref.tsv',
-    'MANUAL_STRING': 'https://raw.githubusercontent.com/opentargets/curation/master/mappings/disease/manual_string.tsv',
+URL_TEMPLATES = {
+    'MANUAL_XREF': 'https://raw.githubusercontent.com/opentargets/curation/{ot_release}/mappings/disease/manual_xref.tsv',
+    'MANUAL_STRING': 'https://raw.githubusercontent.com/opentargets/curation/{ot_release}/mappings/disease/manual_string.tsv',
 }
 
 # List of fields to available for result output.

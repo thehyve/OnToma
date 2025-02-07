@@ -63,6 +63,13 @@ def get_version() -> str:
     help=f"EFO release to use. This must be be either “latest”, or match the specific tag name in their GitHub "
     f"releases, for example v3.31.0. By default, {EFO_DEFAULT_VERSION!r} is used.",
 )
+@click.option(
+    "--ot-release",
+    type=str,
+    default="master",
+    help="Open Targets release to use. This must match a tag or branch name in the GitHub repository "
+    "“opentargets/curation”, for example 25.03. By default, the master branch is used.",
+)
 @click.option("--version", help="Print version number and exit.", is_flag=True)
 @click.option(
     "--log-level",
@@ -71,7 +78,7 @@ def get_version() -> str:
     help="Log verbosity level.",
 )
 def ontoma(
-    infile, outfile, input_type, cache_dir, columns, efo_release, version, log_level
+    infile, outfile, input_type, cache_dir, columns, efo_release, ot_release, version, log_level
 ):
     """Maps ontology identifiers and strings to EFO, the ontology used by the Open Targets Platform."""
     # Initialize logger:
@@ -91,7 +98,7 @@ def ontoma(
         )
 
     logger.info("Initialising OnToma main interface.")
-    otmap = OnToma(cache_dir=cache_dir, efo_release=efo_release)
+    otmap = OnToma(cache_dir=cache_dir, efo_release=efo_release, ot_release=ot_release)
     columns = columns.split(",")
     efo_writer = csv.DictWriter(outfile, columns, delimiter="\t")
     efo_writer.writeheader()
