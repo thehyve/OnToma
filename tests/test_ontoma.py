@@ -1,4 +1,5 @@
 from util import assert_result_ot_label
+from ontoma import OnToma
 
 
 def test_find_term_asthma(ontclient):
@@ -37,7 +38,33 @@ def test_query_comma(ontclient):
 
 
 def test_find_term_alzheimer(ontclient):
+
     assert_result_ot_label(
         ontclient.find_term('alzheimer\'s disease'),
         ['MONDO_0004975']
+    )
+
+
+def test_manually_mapped_in_recent_efo_releases():
+    ontclient = OnToma(efo_release='v3.44.0', cache_dir='/tmp/efo_cache')
+    assert_result_ot_label(
+            ontclient.find_term('Z12 Special screening examination for neoplasms'),
+            ['EFO_0021523']  # EFO ID for 'examination for neoplasm'
+    )
+
+
+def test_manual_mapping_too_new_for_efo_release():
+    ontclient = OnToma(efo_release='v3.43.0', cache_dir='/tmp/efo_cache')
+    assert_result_ot_label(
+            ontclient.find_term('Z12 Special screening examination for neoplasms'),
+            []  # EFO_0021523 did not exist in this release
+    )
+
+
+def test_manual_mapping_matching_old_efo():
+    # TODO: find example that isn't too old to have an ot_release tag
+    ontclient = OnToma(efo_release='v3.43.0', ot_release='22.08', cache_dir='/tmp/efo_cache')
+    assert_result_ot_label(
+            ontclient.find_term('Z12 Special screening examination for neoplasms'),
+            ['EFO_0009517']  # EFO ID for 'checkup'
     )
